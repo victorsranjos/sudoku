@@ -3,15 +3,12 @@ package br.com.dio.model;
 public class Space {
 
     private Integer actual;
-    private final int expected;
     private final boolean fixed;
 
-
-    public Space(final int expected, final boolean fixed) {
-        this.expected = expected;
+    public Space(Integer initialValue, boolean fixed) {
         this.fixed = fixed;
-        if (fixed){
-            actual = expected;
+        if (fixed) {
+            this.actual = initialValue;
         }
     }
 
@@ -19,17 +16,18 @@ public class Space {
         return actual;
     }
 
-    public void setActual(final Integer actual) {
-        if (fixed) return;
+    public boolean setActual(final Integer actual) {
+        if (fixed) {
+            return false;
+        }
         this.actual = actual;
+        return true;
     }
 
     public void clearSpace(){
-        setActual(null);
-    }
-
-    public int getExpected() {
-        return expected;
+        if (!isFixed()) {
+            this.actual = null;
+        }
     }
 
     public boolean isFixed() {
